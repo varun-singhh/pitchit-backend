@@ -1,0 +1,307 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Pitchit",
+    "description": "API for recruitment",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Login in to the pitchit",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/authResponse"
+            }
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Signup to pitchit",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/authResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/details": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get user details",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/userDetails"
+            }
+          }
+        }
+      }
+    },
+    "/recruiter/details": {
+      "get": {
+        "tags": ["Recruiter"],
+        "summary": "Get recruiter details",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/recruiterDetails"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "login": {
+      "required": ["email", "password", "isUser"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+        "isUser": {
+          "type": "boolean"
+        }
+      }
+    },
+    "signup": {
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "password",
+        "confirmPassword",
+        "isUser",
+        "orgName"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        },
+        "isUser": {
+          "type": "boolean"
+        },
+        "orgName": {
+          "type": "string"
+        }
+      }
+    },
+    "recruiterDetails": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string"
+            },
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                },
+                "orgId": {
+                  "type": "string"
+                }
+              }
+            },
+            "currentOrg": {
+              "type": "string"
+            },
+            "isHiring": {
+              "type": "boolean"
+            },
+            "gender": {
+              "type": "string"
+            },
+            "position": {
+              "type": "string"
+            },
+            "jobsPosted": {
+              "type": "object"
+            },
+            "hired": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "userDetails": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string"
+            },
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "_id": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "type": "string"
+                }
+              }
+            },
+            "resume": {
+              "type": "string"
+            },
+            "currenctCity": {
+              "type": "boolean"
+            },
+            "preferedCity": {
+              "type": "string"
+            },
+            "jobs": {
+              "type": "object"
+            },
+            "isOpen": {
+              "type": "boolean"
+            },
+            "upVotes": {
+              "type": "string"
+            },
+            "downVotes": {
+              "type": "string"
+            },
+            "comments": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "authResponse": {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "_id": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string"
+            },
+            "updatedAt": {
+              "type": "string"
+            },
+            "orgId": {
+              "type": "string"
+            }
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
